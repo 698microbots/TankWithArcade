@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -17,7 +19,18 @@ public class driveTrainSubsystem extends SubsystemBase {
   VictorSP back_right = new VictorSP(Constants.back_rightID);
 
   /** Creates a new driveTrainSubsystem. */
-  public driveTrainSubsystem() {}
+  public driveTrainSubsystem() {
+  }
+
+  public void moveLeft(Supplier<Double> speedLeft) {
+    front_left.set(speedLeft.get());
+    back_left.set(speedLeft.get());
+  }
+
+  public void moveRight(Supplier<Double> speedRight) {
+    front_right.set(speedRight.get());
+    back_right.set(speedRight.get());
+  }
 
   @Override
   public void periodic() {
