@@ -8,46 +8,45 @@ import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.subsystems.driveTrainSubsystem;
+import frc.robot.subsystems.DriveTrainSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class driveTrainCommand extends Command {
-  // create objects
-  private driveTrainSubsystem driveTrain = new driveTrainSubsystem();
-
-  private Supplier<Double> speedLeft, speedRight, tSupplier;
-
-  /** Creates a new driveTrainCommand. */
-  public driveTrainCommand(Supplier<Double> speedLeft, Supplier<Double> speedRight, Supplier<Double> tSupplier) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    this.speedLeft = speedLeft;
-    this.speedRight = speedRight;
+public class DriveTrainCommand extends Command {
+  /** Creates a new DriveTrainCommand. */
+private DriveTrainSubsystem driveTrain;
+private Supplier<Double> leftSpeed, rightSpeed, tSupplier ;
+  
+public DriveTrainCommand(Supplier<Double> tSupplier, Supplier<Double> leftSpeed, Supplier<Double> rightSpeed, DriveTrainSubsystem driveTrain) {
+    this.leftSpeed = leftSpeed;
     this.tSupplier = tSupplier;
+    this.rightSpeed = rightSpeed;
+    this.driveTrain = driveTrain;
     addRequirements(driveTrain);
   }
-
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {}
+  
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Double L = speedLeft.get();
-    Double R = speedRight.get();
-
+    Double L = leftSpeed.get();
+    Double R = rightSpeed.get();
+   
     if(tSupplier.get() >0.4){
-      driveTrain.moveRight(Constants.powerAdjustment*(L*0.5+R*Constants.turnAdjustment));
-      driveTrain.moveLeft(Constants.powerAdjustment*(L*0.5-R*Constants.turnAdjustment));  
+      driveTrain.moveRight(Constants.powerAdjusment*(L*0.5+R*Constants.turnAdjustments));
+      driveTrain.moveLeft(Constants.powerAdjusment*(L*0.5-R*Constants.turnAdjustments));    
     }else{
-      driveTrain.moveRight(Constants.powerAdjustment*(L+R*Constants.turnAdjustment));
-      driveTrain.moveLeft(Constants.powerAdjustment*(L-R*Constants.turnAdjustment));  
-    }  
+      driveTrain.moveRight(Constants.powerAdjusment*(L+R*Constants.turnAdjustments));
+      driveTrain.moveLeft(Constants.powerAdjusment*(L-R*Constants.turnAdjustments));    
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    driveTrain.moveRight(0);
+    driveTrain.moveLeft(0);
+    driveTrain.setMotorLocked();
+  }
 
   // Returns true when the command should end.
   @Override

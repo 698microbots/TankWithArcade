@@ -4,32 +4,41 @@
 
 package frc.robot.subsystems;
 
-import java.util.function.Supplier;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class driveTrainSubsystem extends SubsystemBase {
+public class DriveTrainSubsystem extends SubsystemBase {
+  /** Creates a new DriveTrainSubsystem. */
+  // intiliaize four motors talonfx
+  private VictorSPX frontLeft = new VictorSPX(Constants.frontLeftID);
+  private VictorSPX backLeft = new VictorSPX(Constants.backLeftID);
+  private VictorSPX frontRight = new VictorSPX(Constants.frontRightID);
+  private VictorSPX backRight = new VictorSPX(Constants.backRightID);
 
-  // create the motor objects
-  VictorSP front_left = new VictorSP(Constants.front_leftID);
-  VictorSP front_right = new VictorSP(Constants.front_rightID);
-  VictorSP back_left = new VictorSP(Constants.back_leftID);
-  VictorSP back_right = new VictorSP(Constants.back_rightID);
-
-  /** Creates a new driveTrainSubsystem. */
-  public driveTrainSubsystem() {
+  public DriveTrainSubsystem() {
   }
 
-  public void moveLeft(double speedLeft) {
-    front_left.set(speedLeft);
-    back_left.set(speedLeft);
+  // create a method called move left that sets speed to motor
+  public void moveLeft(double speed) {
+    frontLeft.set(VictorSPXControlMode.PercentOutput, speed);
+    backLeft.set(VictorSPXControlMode.PercentOutput, speed);
   }
 
-  public void moveRight(double speedRight) {
-    front_right.set(speedRight);
-    back_right.set(speedRight);
+  public void moveRight(double speed) {
+    frontRight.set(VictorSPXControlMode.PercentOutput, speed);
+    backRight.set(VictorSPXControlMode.PercentOutput, speed);
+  }
+
+  public void setMotorLocked() {
+    frontLeft.setNeutralMode(NeutralMode.Brake);
+    backLeft.setNeutralMode(NeutralMode.Brake);
+    frontRight.setNeutralMode(NeutralMode.Brake);
+    backRight.setNeutralMode(NeutralMode.Brake);
+
   }
 
   @Override
