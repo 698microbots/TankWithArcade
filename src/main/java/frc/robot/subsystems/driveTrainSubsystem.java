@@ -22,14 +22,14 @@ public class driveTrainSubsystem extends SubsystemBase {
   public driveTrainSubsystem() {
   }
 
-  public void moveLeft(Supplier<Double> speedLeft) {
-    front_left.set(speedLeft.get());
-    back_left.set(speedLeft.get());
+  public void moveLeft(double speedLeft) {
+    front_left.set(speedLeft);
+    back_left.set(speedLeft);
   }
 
-  public void moveRight(Supplier<Double> speedRight) {
-    front_right.set(speedRight.get());
-    back_right.set(speedRight.get());
+  public void moveRight(double speedRight) {
+    front_right.set(speedRight);
+    back_right.set(speedRight);
   }
 
   @Override
