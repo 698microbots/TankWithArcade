@@ -8,12 +8,12 @@ import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.subsystems.DriveTrainSubsystem;
+import frc.robot.subsystems.driveTrainSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class DriveTrainCommand extends Command {
   /** Creates a new DriveTrainCommand. */
-private DriveTrainSubsystem driveTrain;
+private driveTrainSubsystem driveTrain;
 private Supplier<Double> leftSpeed, rightSpeed, tSupplier ;
   
 public DriveTrainCommand(Supplier<Double> tSupplier, Supplier<Double> leftSpeed, Supplier<Double> rightSpeed, DriveTrainSubsystem driveTrain) {
