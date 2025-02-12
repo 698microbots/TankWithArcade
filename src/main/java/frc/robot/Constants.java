@@ -18,6 +18,6 @@ public final class Constants {
   public static final int backLeftID = 2;
   public static final int frontRightID = 1;
   public static final int backRightID = 3; 
-  public static final double powerAdjusment = 0.45;
-  public static final double turnAdjustments = 0.5;
+  public static final double powerAdjusment = 0.7;
+  public static final double turnAdjustments = 0.7;
 }
